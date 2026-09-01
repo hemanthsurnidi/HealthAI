@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #050814;
+  --surface: rgba(8, 10, 21, 0.6);
+  --surface-strong: rgba(21, 26, 46, 0.75);
+}
+
+html,
+body {
+  height: 100%;
+  background: radial-gradient(circle at 10% 10%, rgba(124, 58, 237, 0.7), transparent 45%),
+    radial-gradient(circle at 90% 15%, rgba(35, 192, 247, 0.55), transparent 55%),
+    radial-gradient(circle at 25% 80%, rgba(249, 115, 22, 0.35), transparent 65%),
+    var(--bg);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button:focus,
+input:focus,
+select:focus {
+  outline: 4px solid rgba(124, 58, 237, 0.32);
+  outline-offset: 2px;
+}
+
+.fade-up-enter {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.fade-up-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.fade-up-exit {
+  opacity: 1;
+}
+
+.fade-up-exit-active {
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+/* Make <select> dropdown options readable on light background */
+select,
+select option {
+  color: #0f172a !important;      /* dark text */
+  -webkit-text-fill-color: #0f172a !important; /* for Safari/Chrome option rendering */
+}
+
+select option {
+  background: #ffffff !important;  /* white background for options */
+}

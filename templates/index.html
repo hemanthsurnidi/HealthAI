@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Health Risk Dashboard</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <div class="app">
+    <div class="background">
+      <div class="blob blob--1"></div>
+      <div class="blob blob--2"></div>
+      <div class="blob blob--3"></div>
+    </div>
+
+    <header class="navbar">
+      <div class="brand">
+        <div class="brand__icon"><i class="fa-solid fa-stethoscope"></i></div>
+        <div class="brand__text">
+          <h1>HealthAI</h1>
+          <p>Smart risk prediction & prevention</p>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <button id="aboutBtn" class="pill" style="cursor: pointer;">About</button>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="page" id="page-welcome">
+        <div class="hero">
+          <div class="hero__copy">
+            <h2>Discover your health risks in minutes</h2>
+            <p>Our AI analyzes your profile and lifestyle to deliver personalized risk insights and prevention guidance.</p>
+            <button class="btn btn--primary" id="startButton">Start Health Analysis</button>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="page hidden" id="page-personal">
+        <div class="card card--glass">
+          <div class="card__header">
+            <h2>Tell us about yourself</h2>
+            <p>We’ll calculate your BMI and personalize the analysis.</p>
+          </div>
+
+          <div class="grid grid--2">
+            <div class="form-field">
+              <label>Name</label>
+              <input type="text" id="name" placeholder="Your name" />
+              
+            </div>
+            <div class="form-field">
+              <label>Age</label>
+              <input type="number" id="age" min="10" max="100" placeholder="Your age" />
+            </div>
+            <div class="form-field">
+              <label>Gender</label>
+              <select id="gender">
+                <option value="" selected disabled>Select gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-field bmi-preview">
+              <div class="bmi__info">
+                <div>
+                  <p class="label">BMI</p>
+                  <h3 id="bmiValue">-</h3>
+                </div>
+                <span id="bmiTag" class="tag">—</span>
+              </div>
+              <p class="hint">BMI is calculated automatically from height and weight.</p>
+            </div>
+          </div>
+
+          <div class="divider">Height</div>
+
+          <div class="grid grid--3">
+            <div class="form-field">
+              <p class="card__title">Unit</p>
+              <div class="toggle">
+                <label><input type="radio" name="heightUnit" value="m" checked /> m</label>
+                <label><input type="radio" name="heightUnit" value="cm" /> cm</label>
+                <label><input type="radio" name="heightUnit" value="ft" /> ft/in</label>
+              </div>
+            </div>
+
+            <div class="form-field" id="heightMeters">
+              <label>Height (m)</label>
+              <input type="number" id="height" step="0.01" placeholder="e.g. 1.70" />
+            </div>
+
+            <div class="form-field hidden" id="heightCmWrapper">
+              <label>Height (cm)</label>
+              <input type="number" id="heightCm" step="0.1" placeholder="e.g. 170" />
+            </div>
+
+            <div class="form-field hidden" id="heightFtWrapper">
+              <label>Feet / Inches</label>
+              <div class="grid grid--2">
+                <input type="number" id="heightFt" min="1" placeholder="ft" />
+                <input type="number" id="heightIn" min="0" max="11" placeholder="in" />
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label>Weight (kg)</label>
+              <input type="number" id="weight" step="0.1" placeholder="e.g. 85" />
+            </div>
+          </div>
+
+          <div id="formError" style="color: #ef4444; font-size: 0.95rem; margin-top: 16px; display: none; font-weight: 600; text-align: right;"><i class="fa-solid fa-circle-exclamation"></i> Please fill in all fields correctly.</div>
+          <div class="actions">
+            <button class="btn btn--ghost back">Back</button>
+            <button class="btn btn--primary" id="toHealthForm">Next</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="page hidden" id="page-health">
+        <div class="card card--glass">
+          <div class="card__header">
+            <h2>Health & Lifestyle</h2>
+            <p>Select the options that best match your daily habits.</p>
+          </div>
+
+          <div class="grid grid--3">
+            <div class="form-field">
+              <label>Blood Sugar</label>
+              <select id="glucose">
+                  <option value="90">Low</option>
+                  <option value="110" selected>Normal</option>
+                  <option value="160">High</option>
+                  <option value="120">Don't know</option>
+                </select>
+            </div>
+
+            <div class="form-field">
+              <label>Blood Pressure</label>
+              <select id="bloodPressure">
+                  <option value="90">Low</option>
+                  <option value="120" selected>Normal</option>
+                  <option value="150">High</option>
+                  <option value="120">Don't know</option>
+                </select>
+            </div>
+
+            <div class="form-field">
+              <label>Cholesterol</label>
+              <select id="cholesterol">
+                  <option value="180">Normal</option>
+                  <option value="240" selected>High</option>
+                  <option value="200">Don't know</option>
+                </select>
+            </div>
+
+            <div class="form-field">
+              <label>Heart Rate</label>
+              <select id="heartRate">
+                  <option value="55">Low</option>
+                  <option value="75" selected>Normal</option>
+                  <option value="95">High</option>
+                  <option value="75">Don't know</option>
+                </select>
+            </div>
+
+            <div class="form-field">
+              <label>Sleep Hours</label>
+              <select id="sleepHours">
+                  <option value="4">Less than 5</option>
+                  <option value="5.5">5–6</option>
+                  <option value="7.5" selected>7–8</option>
+                  <option value="9">More than 8</option>
+                </select>
+            </div>
+
+            <div class="form-field">
+              <label>Stress Level</label>
+              <select id="stressLevel">
+                  <option value="1">Low</option>
+                  <option value="3" selected>Medium</option>
+                  <option value="5">High</option>
+                </select>
+            </div>
+
+            <div class="form-field">
+              <label>Physical Activity</label>
+              <select id="physicalActivity">
+                  <option value="0">None</option>
+                  <option value="1" selected>Light</option>
+                  <option value="2">Moderate</option>
+                  <option value="3">High</option>
+                </select>
+            </div>
+
+            <div class="form-field">
+              <label>Daily Steps</label>
+              <select id="dailySteps">
+                  <option value="2000">Less than 3000</option>
+                  <option value="4500">3000–6000</option>
+                  <option value="8000" selected>6000–10000</option>
+                  <option value="12000">More than 10000</option>
+                </select>
+            </div>
+
+            <div class="form-field">
+              <label>Smoking</label>
+              <select id="smoking">
+                  <option value="0" selected>No</option>
+                  <option value="1">Occasionally</option>
+                  <option value="1">Regularly</option>
+                </select>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn--ghost back">Back</button>
+            <button class="btn btn--primary" id="submitButton">Generate Report</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="page hidden" id="page-report">
+        <div class="dashboard">
+          <div class="dashboard__header">
+            <div>
+              <h2>Risk Dashboard</h2>
+              <p>Here’s your personalized health risk analysis based on your inputs.</p>
+            </div>
+
+            <div class="dashboard__summary">
+              <div class="summary-card">
+                <div class="summary-card__value" id="overallRisk">--%</div>
+                <div class="summary-card__label">Overall Risk</div>
+              </div>
+              <div class="summary-card">
+                <div class="summary-card__value" id="riskLevel">--</div>
+                <div class="summary-card__label">Risk Level</div>
+              </div>
+            </div>
+          </div>
+
+          <canvas id="riskChart" height="240"></canvas>
+
+          <div class="card-grid" id="resultContainer"></div>
+
+          <div class="actions">
+            <button class="btn btn--ghost back">Back</button>
+            <button class="btn btn--primary" id="toPrevention">Next: Prevention</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="page hidden" id="page-prevention">
+        <div class="card card--glass">
+          <div class="card__header">
+            <h2>Prevention Tips</h2>
+            <p>Simple and effective habits to reduce your risk over time.</p>
+          </div>
+          <div class="prevention-grid" id="preventionList"></div>
+          <div class="actions">
+            <button class="btn btn--primary" id="startOver">Start Over</button>
+          </div>
+        </div>
+      </section>
+    
+      <!-- About Modal -->
+      <div class="modal hidden" id="aboutModal">
+        <div class="modal__backdrop" id="aboutCloseBackdrop"></div>
+        <div class="modal__content card">
+          <div class="card__header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <h2 style="margin: 0;">About HealthAI</h2>
+            <button class="btn btn--ghost" id="aboutCloseBtn" style="padding: 8px 12px; border-radius: 50%;"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <p style="color: var(--muted); line-height: 1.6;">
+            HealthAI is an advanced predictive health analytics dashboard. It analyzes your lifestyle and physical metrics to deliver personalized risk insights and actionable prevention guidance.
+          </p>
+          <div style="background: var(--surface-strong); padding: 16px; border-radius: 12px; margin-top: 20px; border: 1px solid var(--border);">
+            <p style="color: var(--text); line-height: 1.6; font-weight: 600; margin: 0;">
+              <i class="fa-solid fa-database" style="color: var(--primary); margin-right: 8px;"></i> Trained with real datasets
+            </p>
+            <p style="margin: 4px 0 0; font-size: 0.9rem; color: var(--muted);">Our machine learning models are trained using authentic clinical data to ensure accurate insights.</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
