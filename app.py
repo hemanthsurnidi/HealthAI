@@ -5,6 +5,14 @@ import joblib
 app = Flask(__name__)
 CORS(app, resources={r"/predict": {"origins": "*"}})
 
+import os
+import subprocess
+
+# Generate models if they don't exist (e.g., on Render where they are gitignored)
+if not os.path.exists("models") or not os.path.exists("models/diabetes_model.pkl"):
+    print("Models not found. Generating dummy models for deployment...")
+    subprocess.run(["python", "create_dummy_models.py"], check=True)
+
 # load models
 try:
     diabetes_model = joblib.load("models/diabetes_model.pkl")
